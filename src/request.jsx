@@ -9,7 +9,7 @@ var makeRequest = (options, callback) => {
 			'message': options.message
 		},
 		success: function(response) {
-			console.log(response);
+			callback(response);
 		}
 	});
 }

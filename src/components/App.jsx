@@ -1,12 +1,14 @@
 import React from 'react';
 import makeRequest from '../request';
+import Response from './Response';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			message: ''
+			message: '',
+			response: ''
 		}
 
 		this.handleNameChange = this.handleNameChange.bind(this);
@@ -14,20 +16,21 @@ class App extends React.Component {
 		this.submitRequest = this.submitRequest.bind(this);
 	}
 	handleNameChange(event, option) {
-		console.log("NAME:", event.target.value);
 		this.setState({name: event.target.value});
 	}
 	handleMessageChange(event, option) {
-		console.log("MESSAGE:", event.target.value);
 		this.setState({message: event.target.value});
 	}
 	submitRequest() {
 		var req = this.state;
 		console.log("REQUEST:", req);
-		makeRequest(req);
+		makeRequest(req, (response) => {
+			this.setState({
+				response: response
+			});
+		});
 	}
 	render() {
-		var a = 0;
 		return (
 			<div>
 				<span>Name:</span>
@@ -37,6 +40,10 @@ class App extends React.Component {
 				<button className="form-submit" onClick={this.submitRequest}>
 					Send Message
 				</button>
+				<h1>
+					Server Response:
+					<Response text={this.state.response} />
+				</h1>		
 			</div>
 		);
 	}
