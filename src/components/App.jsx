@@ -23,8 +23,8 @@ class App extends React.Component {
 	}
 	submitRequest() {
 		var req = this.state;
-		console.log("REQUEST:", req);
 		makeRequest(req, (response) => {
+			console.log(response.results);
 			this.setState({
 				response: response
 			});
@@ -40,10 +40,7 @@ class App extends React.Component {
 				<button className="form-submit" onClick={this.submitRequest}>
 					Send Message
 				</button>
-				<h1>
-					Server Response:
-					<Response text={this.state.response} />
-				</h1>		
+				<Response text={this.state.response} />
 			</div>
 		);
 	}
